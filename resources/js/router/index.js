@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import AuthLayout from '@/views/layout/Auth.vue';
 import AuthLoginPage from '@/views/pages/auth/Login.vue';
+import AuthRegisterPage from '@/views/pages/auth/Register.vue';
 
 const routes = [
   {
@@ -11,7 +12,7 @@ const routes = [
     path: '/auth', component: AuthLayout, redirect: '/auth/login',
     children: [
       {path: 'login', component: AuthLoginPage, meta: {middleware: 'guest'}},
-      {path: 'register', component: AuthLoginPage, meta: {middleware: 'guest'}},
+      {path: 'register', component: AuthRegisterPage, meta: {middleware: 'guest'}},
     ]
   }
 ];

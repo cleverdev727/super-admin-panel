@@ -1,5 +1,6 @@
 // import { Vue } from 'vue';
 import axios from 'axios';
+import { notify } from '@kyvg/vue3-notification';
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -31,12 +32,12 @@ axios.interceptors.response.use(function (response) {
           });
           message += '</ul>';
       }
-      // Vue.notify({title: 'Error', text: message, type: 'error'});
+      notify({title: 'Error', text: message, type: 'error'});
       throw new Error(error.response.data.message);
   } else {
       // If it is an uncontrolled error, display http status
       // Ladda.stopAll();
-      // Vue.notify({title: 'Error ' + error.response.status, text: error.response.statusText, type: 'error'});
+      notify({title: 'Error ' + error.response.status, text: error.response.statusText, type: 'error'});
       throw new Error(error);
   }
 });

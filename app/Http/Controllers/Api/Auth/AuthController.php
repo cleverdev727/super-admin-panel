@@ -20,7 +20,7 @@ class AuthController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('register', ['only' => ['register']]);
+    // $this->middleware('register', ['only' => ['register']]);
     $this->middleware('auth:sanctum', ['except' => ['login', 'register']]);
   }
 
