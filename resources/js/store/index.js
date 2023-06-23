@@ -11,24 +11,24 @@ const store = createStore({
   },
   mutations: {
     setSetting(state, data) {
-      state.setting = data;
+      state.settings = data;
     },
     login(state, response) {
       state.user = response.user;
       // state.permissions = response.user.role.permissions;
       localStorage.setItem('token', response.token);
-      window.axios.default.headers.common['Authorization'] = 'Bearer ' + response.token;
+      window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.token;
     },
     logout(state) {
       axios.post('api/auth/logout').then(function() {
         state.user = false;
       });
-      delete window.axios.default.headers.common.Authorization;
+      delete window.axios.defaults.headers.common.Authorization;
       localStorage.removeItem('token');
     },
     setuser(state) {
       if (localStorage.getItem('token')) {
-        axios.get('api/auth/user').then(function(response) {
+        axios.post('api/auth/user').then(function(response) {
           state.user = response.data;
           localStorage.setItem('userId', state.user.id);
           // state.permissions = response.data.role.permissions;

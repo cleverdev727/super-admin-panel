@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import AuthLayout from '@/views/layout/Auth.vue';
+import DashboardLayout from '@/views/layout/Dashboard.vue';
 import AuthLoginPage from '@/views/pages/auth/Login.vue';
 import AuthRegisterPage from '@/views/pages/auth/Register.vue';
+import DashboardHome from '@/views/pages/dashboard/Home.vue';
 
 const routes = [
   {
@@ -13,6 +15,12 @@ const routes = [
     children: [
       {path: 'login', component: AuthLoginPage, meta: {middleware: 'guest'}},
       {path: 'register', component: AuthRegisterPage, meta: {middleware: 'guest'}},
+    ]
+  },
+  {
+    path: '/dashboard', component: DashboardLayout, redirect: '/dashboard/home',
+    children: [
+      {path: 'home', component: DashboardHome, meta: {middleware: 'auth'}}
     ]
   }
 ];

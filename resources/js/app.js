@@ -7,7 +7,13 @@ import store from './store';
 import Notifications from '@kyvg/vue3-notification';
 import './style.css';
 
-const app = createApp(App);
+const app = createApp({
+  extends: App,
+  beforeCreate() {
+    this.$store.commit('setuser');
+    this.$store.commit('setSetting', window.app);
+  }
+});
 
 app.use(router);
 app.use(store);

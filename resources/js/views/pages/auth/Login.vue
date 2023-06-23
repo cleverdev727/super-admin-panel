@@ -36,8 +36,8 @@ export default {
     login() {
       const self = this;
       axios.post('api/auth/login', this.user).then(function(response) {
-        this.$store.commit('login', response.data);
-        this.$router.push('/dashboard/home');
+        self.$store.commit('login', response.data);
+        self.$router.push('/dashboard/home');
       }).catch(function(err) {
         self.user.password = null
       })
