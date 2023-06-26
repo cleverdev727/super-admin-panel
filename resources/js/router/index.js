@@ -5,6 +5,7 @@ import DashboardLayout from '@/views/layout/Dashboard.vue';
 import AuthLoginPage from '@/views/pages/auth/Login.vue';
 import AuthRegisterPage from '@/views/pages/auth/Register.vue';
 import DashboardHome from '@/views/pages/dashboard/Home.vue';
+import UserRolesList from '@/views/pages/dashboard/user-roles/list.vue';
 
 const routes = [
   {
@@ -20,7 +21,8 @@ const routes = [
   {
     path: '/dashboard', component: DashboardLayout, redirect: '/dashboard/home',
     children: [
-      {path: 'home', component: DashboardHome, meta: {middleware: 'auth'}}
+      {path: 'home', component: DashboardHome, meta: {middleware: 'auth'}},
+      {path: 'user-roles', component: UserRolesList, meta: {middleware: 'auth'}},
     ]
   }
 ];

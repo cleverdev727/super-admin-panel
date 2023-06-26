@@ -30,13 +30,13 @@ export default {
         },
         {
           id: 'users',
-          path: '/dashboard/admin/users',
+          path: '/dashboard/users',
           label: 'Users',
           permission: 'App.Http.Controllers.Api.Dashboard.UserController',
         },
         {
           id: 'roles',
-          path: '/dashboard/admin/roles',
+          path: '/dashboard/user-roles',
           label: 'Roles',
           permission: 'App.Http.Controllers.Api.Dashboard.RoleController',
         },
