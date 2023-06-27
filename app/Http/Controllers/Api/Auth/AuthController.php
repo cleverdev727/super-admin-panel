@@ -71,8 +71,8 @@ class AuthController extends Controller
     $user = new User();
     $user->name = $request->get('name');
     $user->email = $request->get('email');
+    $user->role_id = 0;
     $user->password = bcrypt($request->get('password'));
-    // $user->role_id = Setting::getDecoded('app_default_role');
     $user->save();
 
     $token = $user->createToken(Str::slug(config('app.name').'_auth_token', '_'))->plainTextToken;

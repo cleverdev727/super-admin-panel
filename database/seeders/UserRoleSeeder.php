@@ -17,7 +17,7 @@ class UserRoleSeeder extends Seeder
     {
         if (UserRole::count() === 0) {
             $userRole = new UserRole();
-            $userRole->name = 'Super Admin';
+            $userRole->name = 'SuperAdmin';
             $userRole->permissions = '[]';
             $userRole->save();
         }
