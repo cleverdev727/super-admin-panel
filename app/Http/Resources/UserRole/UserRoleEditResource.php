@@ -5,7 +5,7 @@ namespace App\Http\Resources\UserRole;
 use App\Models\UserRole;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resource\Json\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserRoleEditResource extends JsonResource
 {

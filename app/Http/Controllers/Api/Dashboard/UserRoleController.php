@@ -112,7 +112,7 @@ class UserRoleController extends Controller
         $path = explode('@', str_replace($route->action['controller'].'\\', '', $route->action['controller']))[0];
         $pathName = str_replace(['App\\Http\\Controllers\\Api\\', 'Controller', '\\'], '', $path);
         $key = str_replace('\\', '.', $path);
-        $label = 'Manage'.strtolower(implode(' ', preg_split('/(?=[A-Z]/', Str::plural($pathName))));
+        $label = 'Manage'.strtolower(implode(' ', preg_split('/(?=[A-Z])/', Str::plural($pathName))));
         if(!in_array($key, $permissionsKeys, true)) {
           $permissionsKeys[] = $key;
         }
