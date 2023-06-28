@@ -26,11 +26,11 @@ const routes = [
     path: '/dashboard', component: DashboardLayout, redirect: '/dashboard/home',
     children: [
       {path: 'home', component: DashboardHome, meta: {middleware: 'auth'}},
-      {path: 'users', component: UsersList, meta: {middleware: 'auth'}},
-      {path: 'users/:id/edit', component: UsersEdit, meta: {middleware: 'auth'}},
-      {path: 'user-roles', component: UserRolesList, meta: {middleware: 'auth'}},
-      {path: 'user-roles/new', component: UserRolesNew, meta: {middleware: 'auth'}},
-      {path: 'user-roles/:id/edit', component: UserRolesEdit, meta: {middleware: 'auth'}},
+      {path: 'users', component: UsersList, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserController'}},
+      {path: 'users/:id/edit', component: UsersEdit, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserController'}},
+      {path: 'user-roles', component: UserRolesList, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserRoleController'}},
+      {path: 'user-roles/new', component: UserRolesNew, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserRoleController'}},
+      {path: 'user-roles/:id/edit', component: UserRolesEdit, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserRoleController'}},
     ]
   }
 ];
@@ -45,6 +45,14 @@ router.beforeEach((to, from, next) => {
   if (to.meta.middleware || to.meta.controller) {
     if (!localStorage.getItem('token') && to.meta.middleware.includes('auth')) {
       next('/auth/login');
+    } else if(localStorage.getItem('token') && to.meta.middleware.includes('auth')) {
+      axios.post('api/auth/check', {controller: to.meta.controller}).then(function(response) {
+        if (!response.data.access) {
+          next('/auth/login');
+        } else {
+          response.data.access ? next() : to.meta.controller ? next('/dashboard/home') : next('/auth/login');
+        }
+      });
     } else {
       next();
     }

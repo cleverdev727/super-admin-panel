@@ -94,16 +94,14 @@ class AuthController extends Controller
    */
   public function check(Request $request):JsonResponse
   {
-    // $dashboardAccess = false;
-    // $access = Auth::check();
-    // if ($access) {
-    //   /** @var User $user */
-    //   $user = Auth::user();
-    //   $dashboardAccess = $user->userRole->checkDashboardAccess();
-    //   if ($request->get('controller')) {
-    //     $access = $user->userRole->checkPermission($request->get('controller'));
-    //   }
-    // }
-    // return response()->json(['access' => $access, 'dashboard_access' => $dashboardAccess]);
+    $access = Auth::check();
+    if ($access) {
+      /** @var User $user */
+      $user = Auth::user();
+      if ($request->get('controller')) {
+        $access = $user->userRole->checkPermission($request->get('controller'));
+      }
+    }
+    return response()->json(['access' => $access]);
   }
 }

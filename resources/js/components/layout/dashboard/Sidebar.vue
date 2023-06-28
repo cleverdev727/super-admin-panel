@@ -4,14 +4,15 @@
       <span>{{ $store.state.user.name }}</span>
       <img src="/imgs/logout.png" alt="logout" class="w-8 invert cursor-pointer" @click="logout">
     </div>
-    <div
-      v-for="(route, index) in routes"
-      :key="index"
-      class="p-4 cursor-pointer"
-      :class="{'bg-black': route.path == $route.path}"
-      @click="redirectTo(route.path)"
-    >
-      <span>{{ route.label }}</span>
+    <div v-for="(route, index) in routes" :key="index">
+      <div
+        v-if="route.permission == '' || ($store.state.permissions && $store.state.permissions[route.permission])"
+        class="p-4 cursor-pointer"
+        :class="{'bg-black': route.path == $route.path}"
+        @click="redirectTo(route.path)"
+      >
+        <span>{{ route.label }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -26,7 +27,7 @@ export default {
           id: 'home',
           path: '/dashboard/home',
           label: 'Dashboard',
-          permission: 'App.Http.Controllers.Api.Dashboard.HomeController',
+          permission: '',
         },
         {
           id: 'users',
@@ -38,7 +39,7 @@ export default {
           id: 'roles',
           path: '/dashboard/user-roles',
           label: 'Roles',
-          permission: 'App.Http.Controllers.Api.Dashboard.RoleController',
+          permission: 'App.Http.Controllers.Api.Dashboard.UserRoleController',
         },
       ]
     }

@@ -15,7 +15,7 @@ const store = createStore({
     },
     login(state, response) {
       state.user = response.user;
-      // state.permissions = response.user.role.permissions;
+      state.permissions = response.user.role.permissions;
       localStorage.setItem('token', response.token);
       window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.token;
     },
@@ -31,13 +31,13 @@ const store = createStore({
         axios.post('api/auth/user').then(function(response) {
           state.user = response.data;
           localStorage.setItem('userId', state.user.id);
-          // state.permissions = response.data.role.permissions;
+          state.permissions = response.data.role.permissions;
         })
       }
     },
     updateUser(state, response) {
       state.user = response;
-      // state.permissions = response.role.permissions;
+      state.permissions = response.role.permissions;
     }
   }
 });
