@@ -8,7 +8,7 @@
       <div
         v-if="route.permission == '' || ($store.state.permissions && $store.state.permissions[route.permission])"
         class="p-4 cursor-pointer"
-        :class="{'bg-black': route.path == $route.path}"
+        :class="{'bg-black': $route.path.indexOf(route.path) == 0}"
         @click="redirectTo(route.path)"
       >
         <span>{{ route.label }}</span>
