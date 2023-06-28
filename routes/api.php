@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\Auth\AuthController as AuthController;
 use App\Http\Controllers\Api\Dashboard\UserRoleController as UserRoleController;
+use App\Http\Controllers\Api\Dashboard\UserController as UserController;
 
 Route::group(['prefix' => 'auth'], static function() {
   Route::post('login', [AuthController::class, 'login'])->name('auth.login');
@@ -15,6 +16,9 @@ Route::group(['prefix' => 'auth'], static function() {
 });
 
 Route::group(['prefix' => 'dashboard'], static function () {
+  Route::get('users/user-roles', [UserController::class, 'userRoles'])->name('users.user-roles');
+  Route::apiResource('users', UserController::class);
+
   Route::get('user-roles/permissions', [UserRoleController::class, 'permissions'])->name('user-roles.permissions');
   Route::apiResource('user-roles', UserRoleController::class);
 });

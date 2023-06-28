@@ -5,6 +5,8 @@ import DashboardLayout from '@/views/layout/Dashboard.vue';
 import AuthLoginPage from '@/views/pages/auth/Login.vue';
 import AuthRegisterPage from '@/views/pages/auth/Register.vue';
 import DashboardHome from '@/views/pages/dashboard/Home.vue';
+import UsersList from '@/views/pages/dashboard/users/List.vue';
+import UsersEdit from '@/views/pages/dashboard/users/Edit.vue';
 import UserRolesList from '@/views/pages/dashboard/user-roles/List.vue';
 import UserRolesNew from '@/views/pages/dashboard/user-roles/New.vue';
 import UserRolesEdit from '@/views/pages/dashboard/user-roles/Edit.vue';
@@ -24,6 +26,8 @@ const routes = [
     path: '/dashboard', component: DashboardLayout, redirect: '/dashboard/home',
     children: [
       {path: 'home', component: DashboardHome, meta: {middleware: 'auth'}},
+      {path: 'users', component: UsersList, meta: {middleware: 'auth'}},
+      {path: 'users/:id/edit', component: UsersEdit, meta: {middleware: 'auth'}},
       {path: 'user-roles', component: UserRolesList, meta: {middleware: 'auth'}},
       {path: 'user-roles/new', component: UserRolesNew, meta: {middleware: 'auth'}},
       {path: 'user-roles/:id/edit', component: UserRolesEdit, meta: {middleware: 'auth'}},

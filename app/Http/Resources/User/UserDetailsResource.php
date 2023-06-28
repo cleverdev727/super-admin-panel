@@ -2,15 +2,15 @@
 
 namespace App\Http\Resources\User;
 
-use App\Http\Resources\UserRole\UserRoleResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserRole\UserRoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class UserDetailsResource extends JsonResource
 {
   /**
-   * Transform the resource collection into an array.
+   * Transform the resource into an array.
    *
    * @param Request $request
    * @return array
@@ -23,11 +23,10 @@ class UserResource extends JsonResource
       'id' => $user->id,
       'name' => $user->name,
       'email' => $user->email,
-      'status' => $user->status,
-      'role' => new UserRoleResource($user->userRole),
       'role_id' => $user->role_id,
-      'created_at' => $user->created_at->toISOString(),
-      'updated_at' => $user->updated_at->toISOString()
+      'status' => (bool) $user->status,
+      'created_at' => (bool) $user->created_at->toISOString(),
+      'updated_at' => (bool) $user->updated_at->toISOString(),
     ];
   }
 }
