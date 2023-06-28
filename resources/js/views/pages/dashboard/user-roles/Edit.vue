@@ -3,7 +3,7 @@
     <form @submit.prevent="saveUserRole">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 px-5">
         <div class="md:flex md:items-center md:justify-between">
-          <h1 class="py-0.5 text-2xl font-semibold text-gray-900">Create user role</h1>
+          <h1 class="py-0.5 text-2xl font-semibold text-gray-900">Edit user role</h1>
           <button class="py-2 px-4 bg-red-600 text-sm text-white shadow-sm rounded-md" type="button" @click="deleteUserRoleModal = true">Delete user role</button>
         </div>
       </div>
