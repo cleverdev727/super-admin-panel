@@ -19,6 +19,7 @@ class UserRoleSeeder extends Seeder
             $userRole = new UserRole();
             $userRole->name = 'SuperAdmin';
             $userRole->permissions = '[]';
+            $userRole->column_permissions = '[]';
             $userRole->save();
         }
     }

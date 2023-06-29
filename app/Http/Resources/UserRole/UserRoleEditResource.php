@@ -24,6 +24,7 @@ class UserRoleEditResource extends JsonResource
       'id' => $userRole->id,
       'name' => $userRole->name,
       'permissions' => json_decode((string) $userRole->permissions, true, 512, JSON_THROW_ON_ERROR),
+      'column_permissions' => json_decode((string) $userRole->column_permissions, true, 512, JSON_THROW_ON_ERROR)
     ];
   }
 }

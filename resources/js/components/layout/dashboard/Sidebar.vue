@@ -36,10 +36,16 @@ export default {
           permission: 'App.Http.Controllers.Api.Dashboard.UserController',
         },
         {
-          id: 'roles',
+          id: 'user-roles',
           path: '/dashboard/user-roles',
           label: 'Roles',
           permission: 'App.Http.Controllers.Api.Dashboard.UserRoleController',
+        },
+        {
+          id: 'permission-columns',
+          path: '/dashboard/permission-columns',
+          label: 'Permission Columns',
+          permission: 'App.Http.Controllers.Api.Dashboard.PermissionColumnController',
         },
       ]
     }

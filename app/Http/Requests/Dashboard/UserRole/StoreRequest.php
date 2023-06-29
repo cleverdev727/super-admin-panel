@@ -25,7 +25,8 @@ class StoreRequest extends FormRequest
   {
     return [
       'name' => ['required', 'max:255', 'unique:user_roles,name'],
-      'permissions' => ['array']
+      'permissions' => ['array'],
+      'column_permissions' => ['array'],
     ];
   }
 
@@ -41,7 +42,9 @@ class StoreRequest extends FormRequest
       'name.max' => 'The name may not be greater than 255 characters',
       'name.unique' => 'The name has already been taken',
 
-      'permissions.array' => 'The permissions must be an array'
+      'permissions.array' => 'The permissions must be an array',
+
+      'column_permissions.array' => 'The column permissions must be an array'
     ];
   }
 
@@ -60,6 +63,16 @@ class StoreRequest extends FormRequest
     }
     $this->merge([
       'permissions' => $permissions,
+    ]);
+
+    $column_permissions = [];
+    foreach($this->get('column_permissions') as $key => $value) {
+      if ($value) {
+        $column_permissions[] = $key;
+      }
+    }
+    $this->merge([
+      'column_permissions' => $column_permissions,
     ]);
   }
 }

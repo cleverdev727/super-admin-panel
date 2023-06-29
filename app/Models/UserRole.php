@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Route;
 
+use App\Models\PermissionColumn;
+
 /**
  * App\Models\UserRole
  *
@@ -73,5 +75,25 @@ class UserRole extends Model
       }
     }
     return $controllers;
+  }
+
+  /**
+   * @return array
+   * @throws Exception
+   */
+  public function getColumnPermissions(): array
+  {
+    $permissionColumns = PermissionColumn::all();
+    $columns = [];
+    $columnPermissions = [];
+    $column_permissions = json_decode((string) $this->column_permissions, true, 512, JSON_THROW_ON_ERROR);
+    foreach ($column_permissions as $value) {
+      list($key, $val) = explode('-', $value);
+      $columnPermissions[$key] = $val;
+    }
+    foreach ($permissionColumns as $value) {
+      $columns[$value['column']] = isset($columnPermissions[$value['id']]) ? $columnPermissions[$value['id']] : 0;
+    }
+    return $columns;
   }
 }

@@ -25,6 +25,7 @@ class UserRoleResource extends JsonResource
       'name' => $userRole->name,
       'users' => $userRole->users()->count(),
       'permissions' => $userRole->getPermissions(),
+      'column_permissions' => $userRole->getColumnPermissions(),
     ];
   }
 }

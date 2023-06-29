@@ -10,6 +10,7 @@ import UsersEdit from '@/views/pages/dashboard/users/Edit.vue';
 import UserRolesList from '@/views/pages/dashboard/user-roles/List.vue';
 import UserRolesNew from '@/views/pages/dashboard/user-roles/New.vue';
 import UserRolesEdit from '@/views/pages/dashboard/user-roles/Edit.vue';
+import PermissionColumns from '@/views/pages/dashboard/PermissionColumns.vue';
 
 const routes = [
   {
@@ -31,6 +32,7 @@ const routes = [
       {path: 'user-roles', component: UserRolesList, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserRoleController'}},
       {path: 'user-roles/new', component: UserRolesNew, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserRoleController'}},
       {path: 'user-roles/:id/edit', component: UserRolesEdit, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserRoleController'}},
+      {path: 'permission-columns', component: PermissionColumns, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.PermissionColumnController'}},
     ]
   }
 ];
