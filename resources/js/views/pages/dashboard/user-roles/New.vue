@@ -14,7 +14,7 @@
                 <input type="text" class="block h-10 px-4 border outline-none mt-1 rounded-md shadow-sm w-full text-sm" placeholder="Name" v-model="userRole.name" id="name">
               </div>
             </div>
-            <div class="flex">
+            <div class="flex pb-6 border-b border-gray-200 mb-6">
               <div class="w-1/3">
                 <h3 class="w-1/3 text-lg font-medium text-gray-900">Permissions</h3>
                 <p class="mt-1 text-sm leading-5 text-gray-500">Sections of the application protected with authentication.</p>
@@ -35,6 +35,34 @@
                     ></span>
                   </span>
                   <div class="ml-3 text-gray-800">{{ permissionLabels[permissionKey] }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="flex">
+              <div class="w-1/3">
+                <h3 class="text-lg font-medium text-gray-900">Columns Access</h3>
+                <p class="mt-1 text-sm leading-5 text-gray-500">The checked columns will have permission.</p>
+              </div>
+              <div class="w-2/3">
+                <div class="pr-28">
+                  <div class="flex items-center rounded-md mb-2">
+                    <span class="w-[150px]">Column Name</span>
+                    <span class="w-[100px] text-center">No Access</span>
+                    <span class="w-[100px] text-center">Read Only</span>
+                    <span class="w-[100px] text-center">Read & Write</span>
+                  </div>
+                  <div class="mt-1 flex items-center rounded-md" v-for="(row, index) in columnRows" :key="index">
+                    <span class="w-[150px]">{{ row.column }}</span>
+                    <span class="w-[100px]">
+                      <input type="radio" :name="row.column" class="ml-[42px] w-4 h-4" @change="handleCheck(row.id, 0)">
+                    </span>
+                    <span class="w-[100px]">
+                      <input type="radio" :name="row.column" class="ml-[42px] w-4 h-4" @change="handleCheck(row.id, 1)">
+                    </span>
+                    <span class="w-[100px]">
+                      <input type="radio" :name="row.column" class="ml-[42px] w-4 h-4" @change="handleCheck(row.id, 2)">
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -63,12 +91,15 @@ export default {
       permissionLabels: [],
       userRole: {
         name: null,
-        permissions: []
+        permissions: [],
+        column_permissions: [],
       },
+      columnRows: [],
     }
   },
   mounted() {
     this.getPermissions();
+    this.getColumns();
   },
   methods: {
     saveUserRole() {
@@ -88,6 +119,24 @@ export default {
         self.permissionKeys = response.data.keys;
         self.permissionLabels = response.data.labels;
       });
+    },
+    getColumns() {
+      const self = this;
+      axios.get('/api/dashboard/user-roles/permission-columns').then(function(response) {
+        self.columnRows = response.data;
+      });
+    },
+    handleCheck(id, val) {
+      let cloneColumnPermissions = [...this.userRole.column_permissions];
+      if (cloneColumnPermissions.includes(`${id}-1`)) {
+        cloneColumnPermissions.splice(cloneColumnPermissions.indexOf(`${id}-1`), 1);
+      } else if (cloneColumnPermissions.includes(`${id}-2`)) {
+        cloneColumnPermissions.splice(cloneColumnPermissions.indexOf(`${id}-2`), 1);
+      }
+      if (val > 0) {
+        cloneColumnPermissions.push(`${id}-${val}`);
+      }
+      this.userRole.column_permissions = cloneColumnPermissions;
     }
   }
 }
