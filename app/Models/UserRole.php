@@ -35,6 +35,7 @@ class UserRole extends Model
    */
   protected $casts = [
     'permissions' => 'json',
+    'column_permissions' => 'json',
   ];
 
   /**

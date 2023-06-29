@@ -9,6 +9,7 @@ use App\Http\Resources\UserRole\UserRoleEditResource;
 use App\Http\Resources\UserRole\UserRoleResource;
 use App\Models\User;
 use App\Models\UserRole;
+use App\Models\PermissionColumn;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -47,6 +48,7 @@ class UserRoleController extends Controller
     $userRole = new UserRole();
     $userRole->name = $request->get('name');
     $userRole->permissions = json_encode(str_replace('\'"', '"', $request->get('permissions')), JSON_THROW_ON_ERROR);
+    $userRole->column_permissions = json_encode(str_replace('\'"', '"', $request->get('column_permissions')), JSON_THROW_ON_ERROR);
     if ($userRole->save()) {
       return response()->json(['message' => 'Data saved correctly', 'userRole' => new UserRoleEditResource($userRole)]);
     }
@@ -77,6 +79,7 @@ class UserRoleController extends Controller
     $request->validated();
     $userRole->name = $request->get('name');
     $userRole->permissions = json_encode(str_replace('\'"', '"', $request->get('permissions')), JSON_THROW_ON_ERROR);
+    $userRole->column_permissions = json_encode(str_replace('\'"', '"', $request->get('column_permissions')), JSON_THROW_ON_ERROR);
     if ($userRole->save()) {
       return response()->json(['message' => 'Data updated correctly', 'userRole' => new UserRoleEditResource($userRole)]);
     }
@@ -120,5 +123,14 @@ class UserRoleController extends Controller
       }
     }
     return response()->json(['keys' => $permissionsKeys, 'labels' => $permissionsLabels]);
+  }
+
+  /**
+   * @return JsonResponse
+   * @throws Exception
+   */
+  public function permissionColumns(Request $request): JsonResponse
+  {
+    return response()->json(PermissionColumn::all());
   }
 }

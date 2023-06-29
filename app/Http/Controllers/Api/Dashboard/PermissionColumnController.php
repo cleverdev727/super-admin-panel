@@ -17,7 +17,7 @@ class PermissionColumnController extends Controller
   }
 
   /**
-   * Display a listing of Resource.
+   * Display a listing of Columns.
    *
    * @param Request $request
    * @return JsonResponse

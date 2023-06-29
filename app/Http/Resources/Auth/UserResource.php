@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\Auth;
 
 use App\Http\Resources\UserRole\UserRoleResource;
 use App\Models\User;
-use App\Models\UserRole;
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,15 +17,8 @@ class UserResource extends JsonResource
    */
   public function toArray($request)
   {
-    $table = 'users';
-    $columnPermissions = [];
-    $curUser = Auth::user();
-    $userRole = new UserRoleResource($curUser->userRole);
-    $columnPermissions = $userRole->getColumnPermissions();
-
     /** @var User $user */
     $user = $this;
-
     $ary = [
       'id' => $user->id,
       'name' => $user->name,
@@ -38,20 +29,6 @@ class UserResource extends JsonResource
       'created_at' => $user->created_at->toISOString(),
       'updated_at' => $user->updated_at->toISOString()
     ];
-
-    foreach ($columnPermissions as $key => $value) {
-      if ($value == 0) {
-        list($tbl, $col) = explode('-', $key);
-        if($tbl == $table) {
-          unset($ary[$col]);
-        }
-      }
-    }
-
-    if (isset($columnPermissions[$table . '-role_id'])) {
-      unset($ary['role']);
-    }
-
     return $ary;
   }
 }

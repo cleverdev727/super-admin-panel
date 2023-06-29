@@ -21,6 +21,7 @@ Route::group(['prefix' => 'dashboard'], static function () {
   Route::apiResource('users', UserController::class);
 
   Route::get('user-roles/permissions', [UserRoleController::class, 'permissions'])->name('user-roles.permissions');
+  Route::get('user-roles/permission-columns', [UserRoleController::class, 'permissionColumns'])->name('user-roles.permissionColumns');
   Route::apiResource('user-roles', UserRoleController::class);
 
   Route::get('permission-columns', [PermissionColumnController::class, 'index'])->name('permission-columns.index');
