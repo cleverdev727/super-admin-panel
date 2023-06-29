@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UserRole\UserRoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Helper\Utils;
+
 class UserDetailsResource extends JsonResource
 {
   /**
@@ -17,9 +19,11 @@ class UserDetailsResource extends JsonResource
    */
   public function toArray($request)
   {
+    $table = 'users';
+
     /** @var User $user */
     $user = $this;
-    return [
+    $ary = [
       'id' => $user->id,
       'name' => $user->name,
       'email' => $user->email,
@@ -28,5 +32,9 @@ class UserDetailsResource extends JsonResource
       'created_at' => (bool) $user->created_at->toISOString(),
       'updated_at' => (bool) $user->updated_at->toISOString(),
     ];
+
+    $ary = Utils::filterData($table, $ary);
+
+    return $ary;
   }
 }

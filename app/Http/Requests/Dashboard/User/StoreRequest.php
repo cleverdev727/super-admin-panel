@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Dashboard\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Helper\Utils;
 
 class StoreRequest extends FormRequest
 {
@@ -23,13 +24,19 @@ class StoreRequest extends FormRequest
    */
   public function rules()
   {
-    return [
+    $table = 'users';
+
+    $ary = [
       'name' => ['required', 'max:255'],
       'email' => ['required', 'email', 'max:255', 'unique:users'],
       'status' => ['required'],
       'role_id' => ['required', 'exist:user_roles,id'],
       'password' => ['required', 'min:6']
     ];
+
+    $ary = Utils::filterRule($table, $ary);
+
+    return $ary;
   }
 
   /**

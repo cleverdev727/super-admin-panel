@@ -14,8 +14,11 @@ use Excepton;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+use App\Helper\Utils;
+
 class UserController extends Controller
 {
+  protected $table = 'users';
   public function __construct()
   {
     $this->middleware('auth:sanctum');
@@ -48,6 +51,9 @@ class UserController extends Controller
     $user->status = $request->get('status');
     $user->role_id = $request->get('role_id');
     $user->password = bcrypt($request->get('password'));
+
+    $user = Utils::filterData($this->table, $user, [0,1]);
+
     if ($user->save()) {
       return response()->json(['message' => 'Data saved correctly', 'user' => new UserResource($user)]);
     }
@@ -84,6 +90,9 @@ class UserController extends Controller
     $user->email = $request->get('email');
     $user->status = $request->get('status');
     $user->role_id = $request->get('role_id');
+
+    $user = Utils::filterData($this->table, $user, [0,1]);
+
     if ($user->save()) {
       return response()->json(['message' => 'Data updated correctly', 'user' => new UserResource($user)]);
     }
@@ -99,6 +108,9 @@ class UserController extends Controller
    */
   public function destroy(User $user): JsonResponse
   {
+    if (!Utils::checkPermissionToDelete($this->table)) {
+      return response()->json(['message' => 'You don\'t have permission to delete.'], 403);
+    }
     /** @var User $authUser */
     $authUser = Auth::user();
     if ($user->id === $authUser->id) {

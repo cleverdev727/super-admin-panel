@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Dashboard\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Helper\Utils;
 
 class UpdateRequest extends FormRequest
 {
@@ -23,12 +24,17 @@ class UpdateRequest extends FormRequest
    */
   public function rules()
   {
-    return [
+    $table = 'users';
+    $ary = [
       'name' => ['required', 'max:255'],
       'email' => ['required', 'email', 'max:255', 'unique:users,email,'.$this->get('id')],
       'status' => ['required'],
       'role_id' => ['required', 'exists:user_roles,id']
     ];
+
+    $ary = Utils::filterRule($table, $ary);
+
+    return $ary;
   }
 
   /**
