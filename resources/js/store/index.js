@@ -16,8 +16,10 @@ const store = createStore({
     },
     login(state, response) {
       state.user = response.user;
-      state.permissions = response.user.role.permissions;
-      state.columnPermissions = response.user.role.column_permissions;
+      if (response.user.role) {
+        state.permissions = response.user.role.permissions;
+        state.columnPermissions = response.user.role.column_permissions;
+      }
       localStorage.setItem('token', response.token);
       window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.token;
     },
@@ -33,15 +35,19 @@ const store = createStore({
         axios.post('api/auth/user').then(function(response) {
           state.user = response.data;
           localStorage.setItem('userId', state.user.id);
-          state.permissions = response.data.role.permissions;
-          state.columnPermissions = response.data.role.column_permissions;
+          if (response.data.role) {
+            state.permissions = response.data.role.permissions;
+            state.columnPermissions = response.data.role.column_permissions;
+          }
         })
       }
     },
     updateUser(state, response) {
       state.user = response;
-      state.permissions = response.role.permissions;
-      state.columnPermissions = response.role.column_permissions;
+      if (response.data.role) {
+        state.permissions = response.role.permissions;
+        state.columnPermissions = response.role.column_permissions;
+      }
     }
   }
 });
