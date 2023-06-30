@@ -26,6 +26,8 @@ const store = createStore({
     logout(state) {
       axios.post('api/auth/logout').then(function() {
         state.user = false;
+        state.permissions = {};
+        state.columnPermissions = {};
       });
       delete window.axios.defaults.headers.common.Authorization;
       localStorage.removeItem('token');
