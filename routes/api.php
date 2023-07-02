@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthController as AuthController;
 use App\Http\Controllers\Api\Dashboard\UserRoleController as UserRoleController;
 use App\Http\Controllers\Api\Dashboard\UserController as UserController;
+use App\Http\Controllers\Api\Dashboard\TestController as TestController;
 use App\Http\Controllers\Api\Dashboard\PermissionColumnController as PermissionColumnController;
 
 Route::group(['prefix' => 'auth'], static function() {
@@ -27,4 +28,6 @@ Route::group(['prefix' => 'dashboard'], static function () {
   Route::get('permission-columns', [PermissionColumnController::class, 'index'])->name('permission-columns.index');
   Route::get('permission-columns/tables', [PermissionColumnController::class, 'getTables'])->name('permission-columns.getTables');
   Route::post('permission-columns/save', [PermissionColumnController::class, 'save'])->name('permission-columns.save');
+
+  Route::apiResource('tests', TestController::class);
 });
