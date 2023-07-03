@@ -11,6 +11,9 @@ import UserRolesList from '@/views/pages/dashboard/user-roles/List.vue';
 import UserRolesNew from '@/views/pages/dashboard/user-roles/New.vue';
 import UserRolesEdit from '@/views/pages/dashboard/user-roles/Edit.vue';
 import PermissionColumns from '@/views/pages/dashboard/PermissionColumns.vue';
+import TestsList from '@/views/pages/dashboard/tests/List.vue';
+import TestsEdit from '@/views/pages/dashboard/tests/Edit.vue';
+import TestsNew from '@/views/pages/dashboard/tests/New.vue';
 
 const routes = [
   {
@@ -33,6 +36,9 @@ const routes = [
       {path: 'user-roles/new', component: UserRolesNew, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserRoleController'}},
       {path: 'user-roles/:id/edit', component: UserRolesEdit, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.UserRoleController'}},
       {path: 'permission-columns', component: PermissionColumns, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.PermissionColumnController'}},
+      {path: 'tests', component: TestsList, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.TestController'}},
+      {path: 'tests/:id/edit', component: TestsEdit, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.TestController'}},
+      {path: 'tests/new', component: TestsNew, meta: {middleware: 'auth', controller: 'App.Http.Controllers.Api.Dashboard.TestController'}},
     ]
   }
 ];

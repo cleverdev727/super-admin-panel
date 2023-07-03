@@ -36,6 +36,12 @@ export default {
           permission: 'App.Http.Controllers.Api.Dashboard.UserController',
         },
         {
+          id: 'tests',
+          path: '/dashboard/tests',
+          label: 'Tests',
+          permission: 'App.Http.Controllers.Api.Dashboard.TestController',
+        },
+        {
           id: 'user-roles',
           path: '/dashboard/user-roles',
           label: 'Roles',

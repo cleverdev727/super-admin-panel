@@ -30,7 +30,7 @@ class StoreRequest extends FormRequest
       'name' => ['required', 'max:255'],
       'email' => ['required', 'email', 'max:255', 'unique:users'],
       'status' => ['required'],
-      'role_id' => ['required', 'exist:user_roles,id'],
+      'role_id' => ['required', 'exists:user_roles,id'],
       'password' => ['required', 'min:6']
     ];
 

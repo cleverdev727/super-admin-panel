@@ -36,15 +36,16 @@ class Utils
       if ($value != 2) {
         list($tbl, $col) = explode('-', $key);
         if($tbl == $table) {
-          $index = array_search('required', $data[$col]);
-          if(is_numeric($index)) {
-            unset($data[$col][$index]);
-          }
-          foreach ($data[$col] as $ind => $str) {
-            if (strpos($str, 'exists:') !== false) {
-              unset($data[$col][$ind]);
-            }
-          }
+          unset($data[$col]);
+          // $index = array_search('required', $data[$col]);
+          // if(is_numeric($index)) {
+          //   unset($data[$col][$index]);
+          // }
+          // foreach ($data[$col] as $ind => $str) {
+          //   if (strpos($str, 'exists:') !== false) {
+          //     unset($data[$col][$ind]);
+          //   }
+          // }
         }
       }
     }

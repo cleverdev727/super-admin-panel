@@ -13,11 +13,11 @@
             <div class="flex pb-6 border-b border-gray-200 mb-6">
               <h3 class="w-1/3 text-lg font-medium text-gray-900">User details</h3>
               <div class="w-2/3">
-                <div class="mb-4" v-if="displayColumn(`${pageId}-name`)">
+                <div class="mb-4" v-if="$editColumn(`${pageId}-name`)">
                   <label class="block text-sm font-medium text-gray-700" for="name">Name</label>
                   <input type="text" class="block h-10 px-4 border outline-none mt-1 rounded-md shadow-sm w-full text-sm" placeholder="Name" v-model="user.name" id="name">
                 </div>
-                <div v-if="displayColumn(`${pageId}-email`)">
+                <div v-if="$editColumn(`${pageId}-email`)">
                   <label class="block text-sm font-medium text-gray-700" for="email">Email</label>
                   <input type="text" class="block h-10 px-4 border outline-none mt-1 rounded-md shadow-sm w-full text-sm" placeholder="Email" v-model="user.email" id="email">
                 </div>
@@ -29,7 +29,7 @@
                 <p class="mt-1 text-sm leading-5 text-gray-500">User access and permission settings</p>
               </div>
               <div class="w-2/3">
-                <div class="mb-4" v-if="displayColumn(`${pageId}-role_id`)">
+                <div class="mb-4" v-if="$editColumn(`${pageId}-role_id`)">
                   <label class="block text-sm font-medium text-gray-700" for="role">Role</label>
                   <div class="mt-1 relative rounded-md shadow-sm">
                     <select
@@ -43,7 +43,7 @@
                     </select>
                   </div>
                 </div>
-                <div  v-if="displayColumn(`${pageId}-status`)">
+                <div  v-if="$editColumn(`${pageId}-status`)">
                   <label class="block text-sm font-medium leading-5 text-gray-700" for="status">Status</label>
                   <div class="mt-1 flex rounded-md">
                     <span
@@ -210,13 +210,6 @@ export default {
         self.userRoles = response.data;
       });
     },
-    displayColumn(col) {
-      if (this.$store.state.columnPermissions[col] == undefined || this.$store.state.columnPermissions[col] == 2) {
-        return true;
-      } else {
-        return false;
-      }
-    }
   }
 }
 </script>

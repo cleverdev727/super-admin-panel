@@ -14,14 +14,14 @@
                 <div class="flex items-center p-4 sm:px-6">
                   <div class="w-full md:grid md:grid-cols-2 md:gap-4">
                     <div>
-                      <p class="text-sm font-medium text-blue-600 truncate" v-if="displayColumn(`${pageId}-name`)">{{ user.name }}</p>
-                      <p class="text-sm text-gray-500 truncate" v-if="displayColumn(`${pageId}-email`)">{{ user.email }}</p>
+                      <p class="text-sm font-medium text-blue-600 truncate" v-if="$displayColumn(`${pageId}-name`)">{{ user.name }}</p>
+                      <p class="text-sm text-gray-500 truncate" v-if="$displayColumn(`${pageId}-email`)">{{ user.email }}</p>
                     </div>
                     <div class="hidden md:block">
-                      <p class="text-sm text-gray-900 font-medium" v-if="displayColumn(`${pageId}-role_id`)">
+                      <p class="text-sm text-gray-900 font-medium" v-if="$displayColumn(`${pageId}-role_id`)">
                         {{ user.role ? 'The user has the role: ' + user.role.name : 'The user doesn\'t have the role' }}
                       </p>
-                      <p class="text-sm" :class="user.status === 1 ? 'text-gray-500' : 'text-red-500'" v-if="displayColumn(`${pageId}-status`)">
+                      <p class="text-sm" :class="user.status === 1 ? 'text-gray-500' : 'text-red-500'" v-if="$displayColumn(`${pageId}-status`)">
                         {{ user.status === 1 ? 'User is activated' : 'User is disabled' }}
                       </p>
                     </div>
@@ -60,15 +60,6 @@ export default {
         self.userList = response.data.items;
       });
     },
-    displayColumn(col) {
-      if (this.$store.state.columnPermissions[col] == undefined) {
-        return true;
-      } else if (this.$store.state.columnPermissions[col] == 0) {
-        return false;
-      } else {
-        return true;
-      }
-    }
   }
 }
 </script>
